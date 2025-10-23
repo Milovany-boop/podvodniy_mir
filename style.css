@@ -1,0 +1,1227 @@
+:root {
+    /* Modern marine palette */
+    --deep-blue: #0a2463;
+    --ocean-blue: #1e6091;
+    --sea-green: #168aad;
+    --aqua: #34a0a4;
+    --mint: #52b69a;
+    --seafoam: #76c893;
+    --coral: #ff9b71;
+    --gold: #ffd166;
+    --pearl: #f8f9fa;
+    --dark-ocean: #051923;
+    --modal-bg: rgba(5, 25, 35, 0.95);
+    --card-bg: rgba(255, 255, 255, 0.1);
+    
+    /* Firebase status colors */
+    --firebase-connected: #52b69a;
+    --firebase-disconnected: #ffd166;
+    --firebase-error: #ff9b71;
+    --firebase-syncing: #34a0a4;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+body {
+    background: linear-gradient(135deg, var(--deep-blue), var(--ocean-blue) 50%, var(--sea-green));
+    color: var(--pearl);
+    min-height: 100vh;
+    padding: 20px;
+    position: relative;
+    overflow-x: hidden;
+}
+
+/* Анимированный морской фон */
+.ocean-background {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: -2;
+    overflow: hidden;
+}
+
+.wave {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 200%;
+    height: 20vh;
+    background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1200 120' preserveAspectRatio='none'%3E%3Cpath d='M321.39,56.44c58-10.79,114.16-30.13,172-41.86,82.39-16.72,168.19-17.73,250.45-.39C823.78,31,906.67,72,985.66,92.83c70.05,18.48,146.53,26.09,214.34,3V0H0V27.35A600.21,600.21,0,0,0,321.39,56.44Z' fill='%23168aad'/%3E%3C/svg%3E");
+    background-size: 50% 100%;
+    animation: wave 15s linear infinite;
+    opacity: 0.6;
+}
+
+.wave-1 {
+    animation-duration: 20s;
+    opacity: 0.8;
+    background-color: var(--sea-green);
+}
+
+.wave-2 {
+    animation-duration: 15s;
+    animation-delay: -5s;
+    opacity: 0.6;
+    bottom: 5vh;
+    background-color: var(--aqua);
+}
+
+.wave-3 {
+    animation-duration: 10s;
+    animation-delay: -2s;
+    opacity: 0.4;
+    bottom: 10vh;
+    background-color: var(--mint);
+}
+
+@keyframes wave {
+    0% { transform: translateX(0); }
+    50% { transform: translateX(-25%); }
+    100% { transform: translateX(-50%); }
+}
+
+/* Пузырьки */
+.bubbles {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+}
+
+.bubbles::before {
+    content: "";
+    position: absolute;
+    width: 200%;
+    height: 200%;
+    background: 
+        radial-gradient(circle at 20% 80%, rgba(255, 255, 255, 0.1) 2px, transparent 2px),
+        radial-gradient(circle at 80% 20%, rgba(255, 255, 255, 0.1) 2px, transparent 2px),
+        radial-gradient(circle at 40% 40%, rgba(255, 255, 255, 0.1) 2px, transparent 2px);
+    background-size: 50px 50px;
+    animation: bubbles 20s linear infinite;
+}
+
+@keyframes bubbles {
+    0% { transform: translateY(100vh) rotate(0deg); }
+    100% { transform: translateY(-100vh) rotate(360deg); }
+}
+
+/* Морская жизнь */
+.marine-life {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+}
+
+.fish {
+    position: absolute;
+    font-size: 2rem;
+    animation: swim 20s linear infinite;
+}
+
+.fish-1 {
+    top: 20%;
+    animation-duration: 25s;
+    animation-delay: 0s;
+}
+
+.fish-2 {
+    top: 60%;
+    animation-duration: 30s;
+    animation-delay: -10s;
+}
+
+.fish-3 {
+    top: 40%;
+    animation-duration: 35s;
+    animation-delay: -5s;
+}
+
+.seaweed {
+    position: absolute;
+    bottom: 0;
+    font-size: 3rem;
+    animation: sway 8s ease-in-out infinite;
+}
+
+.seaweed-1 {
+    left: 10%;
+    animation-delay: 0s;
+}
+
+.seaweed-2 {
+    right: 15%;
+    animation-delay: -2s;
+}
+
+@keyframes swim {
+    0% { transform: translateX(-100px) scaleX(1); }
+    50% { transform: translateX(calc(100vw + 100px)) scaleX(1); }
+    51% { transform: translateX(calc(100vw + 100px)) scaleX(-1); }
+    100% { transform: translateX(-100px) scaleX(-1); }
+}
+
+@keyframes sway {
+    0%, 100% { transform: rotate(-5deg); }
+    50% { transform: rotate(5deg); }
+}
+
+.container {
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: 20px;
+}
+
+/* Форма входа */
+.login-form {
+    background: var(--modal-bg);
+    padding: 40px;
+    border-radius: 20px;
+    margin: 50px auto;
+    max-width: 450px;
+    text-align: center;
+    box-shadow: 
+        0 20px 40px rgba(0, 0, 0, 0.3),
+        inset 0 1px 0 rgba(255, 255, 255, 0.2);
+    border: 2px solid var(--gold);
+    backdrop-filter: blur(10px);
+    position: relative;
+    z-index: 10;
+}
+
+.form-logo {
+    margin-bottom: 30px;
+}
+
+.form-logo i {
+    font-size: 3rem;
+    color: var(--gold);
+    margin-bottom: 15px;
+    display: block;
+}
+
+.form-logo h2 {
+    color: var(--pearl);
+    font-size: 1.8rem;
+    background: linear-gradient(45deg, var(--pearl), var(--gold));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+}
+
+.form-group {
+    margin-bottom: 20px;
+    text-align: left;
+}
+
+.form-group label {
+    display: block;
+    margin-bottom: 8px;
+    font-weight: 600;
+    color: var(--seafoam);
+}
+
+.form-group label i {
+    margin-right: 8px;
+    color: var(--gold);
+}
+
+.form-group input {
+    width: 100%;
+    padding: 15px;
+    border-radius: 10px;
+    border: 2px solid transparent;
+    background: rgba(255, 255, 255, 0.1);
+    color: var(--pearl);
+    font-size: 1rem;
+    transition: all 0.3s ease;
+}
+
+.form-group input:focus {
+    outline: none;
+    border-color: var(--gold);
+    background: rgba(255, 255, 255, 0.15);
+}
+
+/* Статус Firebase */
+.firebase-status {
+    margin-top: 15px;
+    padding: 12px;
+    border-radius: 10px;
+    text-align: center;
+    font-size: 0.9rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    transition: all 0.3s ease;
+    backdrop-filter: blur(10px);
+}
+
+.firebase-status.connected {
+    background: rgba(82, 182, 154, 0.2);
+    color: var(--firebase-connected);
+    border: 1px solid var(--firebase-connected);
+}
+
+.firebase-status.disconnected {
+    background: rgba(255, 209, 102, 0.2);
+    color: var(--firebase-disconnected);
+    border: 1px solid var(--firebase-disconnected);
+}
+
+.firebase-status.error {
+    background: rgba(255, 155, 113, 0.2);
+    color: var(--firebase-error);
+    border: 1px solid var(--firebase-error);
+}
+
+.firebase-status.syncing {
+    background: rgba(52, 160, 164, 0.2);
+    color: var(--firebase-syncing);
+    border: 1px solid var(--firebase-syncing);
+    animation: pulse 2s infinite;
+}
+
+@keyframes pulse {
+    0% { opacity: 1; }
+    50% { opacity: 0.7; }
+    100% { opacity: 1; }
+}
+
+.firebase-status i {
+    font-size: 1.1rem;
+}
+
+/* Основной интерфейс */
+.voting-interface {
+    position: relative;
+    z-index: 10;
+}
+
+.main-header {
+    text-align: center;
+    margin-bottom: 30px;
+    padding: 30px;
+    background: linear-gradient(135deg, 
+        rgba(10, 36, 99, 0.9), 
+        rgba(30, 96, 145, 0.9));
+    border-radius: 20px;
+    box-shadow: 
+        0 15px 35px rgba(0, 0, 0, 0.3),
+        inset 0 1px 0 rgba(255, 255, 255, 0.2);
+    border: 2px solid var(--gold);
+    backdrop-filter: blur(10px);
+}
+
+.header-content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 20px;
+}
+
+.title-section {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+.title-section i {
+    font-size: 2.5rem;
+    color: var(--gold);
+    animation: float 3s ease-in-out infinite;
+}
+
+@keyframes float {
+    0%, 100% { transform: translateY(0px); }
+    50% { transform: translateY(-10px); }
+}
+
+h1 {
+    font-size: 3rem;
+    margin: 0;
+    color: transparent;
+    background: linear-gradient(45deg, var(--pearl), var(--gold), var(--coral));
+    -webkit-background-clip: text;
+    background-clip: text;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+}
+
+.header-info {
+    display: flex;
+    gap: 20px;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+}
+
+.voter-info {
+    background: linear-gradient(135deg, var(--aqua), var(--mint));
+    padding: 12px 25px;
+    border-radius: 25px;
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    font-weight: 600;
+    color: var(--dark-ocean);
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+}
+
+.timer {
+    background: linear-gradient(135deg, var(--coral), var(--gold));
+    padding: 12px 25px;
+    border-radius: 25px;
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    font-weight: 600;
+    color: var(--dark-ocean);
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+    position: relative;
+}
+
+.progress {
+    position: absolute;
+    bottom: -25px;
+    left: 50%;
+    transform: translateX(-50%);
+    font-size: 0.8rem;
+    opacity: 0.9;
+    white-space: nowrap;
+}
+
+/* Навигация по категориям */
+.categories-nav {
+    margin-bottom: 30px;
+}
+
+.categories-scroll {
+    display: flex;
+    gap: 10px;
+    overflow-x: auto;
+    padding: 10px 5px;
+    scrollbar-width: none;
+}
+
+.categories-scroll::-webkit-scrollbar {
+    display: none;
+}
+
+.category-btn {
+    padding: 12px 20px;
+    border: none;
+    border-radius: 25px;
+    background: var(--card-bg);
+    color: var(--pearl);
+    cursor: pointer;
+    transition: all 0.3s ease;
+    white-space: nowrap;
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.category-btn:hover {
+    transform: translateY(-2px);
+    background: rgba(255, 255, 255, 0.2);
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+}
+
+.category-btn.active {
+    background: linear-gradient(135deg, var(--gold), var(--coral));
+    color: var(--dark-ocean);
+    font-weight: bold;
+}
+
+/* Карточки номинаций */
+.nominations-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+    gap: 25px;
+    margin-bottom: 30px;
+}
+
+.nomination-card {
+    background: var(--card-bg);
+    border-radius: 15px;
+    padding: 25px;
+    text-align: center;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+    transition: all 0.3s ease;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    cursor: pointer;
+    backdrop-filter: blur(10px);
+    position: relative;
+    overflow: hidden;
+}
+
+.nomination-card::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.1), transparent);
+    transition: left 0.5s;
+}
+
+.nomination-card:hover::before {
+    left: 100%;
+}
+
+.nomination-card:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 15px 40px rgba(0, 0, 0, 0.3);
+    border-color: var(--gold);
+}
+
+.nomination-title {
+    font-size: 1.4rem;
+    margin-bottom: 15px;
+    color: var(--gold);
+    font-weight: 600;
+}
+
+.nomination-description {
+    margin-bottom: 20px;
+    font-size: 0.95rem;
+    opacity: 0.9;
+    line-height: 1.5;
+}
+
+/* Кнопки */
+.ocean-btn {
+    background: linear-gradient(135deg, var(--aqua), var(--mint));
+    color: var(--dark-ocean);
+    border: none;
+    padding: 15px 30px;
+    border-radius: 12px;
+    cursor: pointer;
+    font-weight: bold;
+    width: 100%;
+    transition: all 0.3s ease;
+    font-size: 1.1rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+}
+
+.ocean-btn:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+    background: linear-gradient(135deg, var(--mint), var(--seafoam));
+}
+
+.ocean-btn:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+    transform: none;
+}
+
+.ocean-btn:disabled:hover {
+    transform: none;
+    box-shadow: none;
+}
+
+.view-nominees-btn {
+    background: linear-gradient(135deg, var(--gold), var(--coral));
+    color: var(--dark-ocean);
+    border: none;
+    padding: 12px 25px;
+    border-radius: 10px;
+    cursor: pointer;
+    font-weight: bold;
+    transition: all 0.3s ease;
+}
+
+.view-nominees-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+}
+
+.view-nominees-btn:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+    transform: none;
+}
+
+.view-nominees-btn:disabled:hover {
+    transform: none;
+    box-shadow: none;
+}
+
+/* Модальное окно */
+.overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.8);
+    z-index: 100;
+    backdrop-filter: blur(5px);
+}
+
+.nomination-modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 101;
+    padding: 20px;
+}
+
+.modal-content {
+    background: var(--modal-bg);
+    padding: 30px;
+    border-radius: 20px;
+    box-shadow: 0 25px 50px rgba(0, 0, 0, 0.4);
+    border: 2px solid var(--gold);
+    max-width: 95%;
+    width: 1000px;
+    max-height: 90vh;
+    overflow-y: auto;
+    position: relative;
+    backdrop-filter: blur(10px);
+}
+
+.close-modal {
+    position: absolute;
+    top: 15px;
+    right: 15px;
+    background: none;
+    border: none;
+    font-size: 1.5rem;
+    color: var(--pearl);
+    cursor: pointer;
+    width: 40px;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    transition: all 0.3s ease;
+}
+
+.close-modal:hover {
+    background: rgba(255, 255, 255, 0.1);
+    color: var(--gold);
+}
+
+#modal-title {
+    text-align: center;
+    margin-bottom: 10px;
+    color: var(--gold);
+    font-size: 2.2rem;
+}
+
+.modal-description {
+    text-align: center;
+    margin-bottom: 25px;
+    opacity: 0.9;
+    font-size: 1.1rem;
+}
+
+.modal-nominees {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    gap: 20px;
+}
+
+.modal-nominee {
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 15px;
+    padding: 20px;
+    text-align: center;
+    transition: all 0.3s ease;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(10px);
+}
+
+.modal-nominee:hover {
+    transform: translateY(-5px);
+    border-color: var(--gold);
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+}
+
+.nominee-image-container {
+    width: 120px;
+    height: 120px;
+    margin: 0 auto 15px;
+    border-radius: 50%;
+    overflow: hidden;
+    border: 3px solid var(--gold);
+    position: relative;
+}
+
+.modal-nominee-image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.3s ease;
+}
+
+.modal-nominee:hover .modal-nominee-image {
+    transform: scale(1.1);
+}
+
+.modal-nominee-name {
+    font-size: 1.1rem;
+    margin-bottom: 10px;
+    color: var(--pearl);
+    font-weight: 600;
+}
+
+.modal-vote-btn {
+    background: linear-gradient(135deg, var(--aqua), var(--mint));
+    color: var(--dark-ocean);
+    border: none;
+    padding: 10px 20px;
+    border-radius: 8px;
+    cursor: pointer;
+    font-weight: bold;
+    transition: all 0.3s ease;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+}
+
+.modal-vote-btn:hover {
+    background: linear-gradient(135deg, var(--mint), var(--seafoam));
+    transform: translateY(-2px);
+}
+
+.modal-vote-btn.voted {
+    background: linear-gradient(135deg, var(--gold), var(--coral));
+}
+
+.modal-vote-btn:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+    transform: none;
+}
+
+.modal-vote-btn:disabled:hover {
+    transform: none;
+}
+
+/* Сообщения */
+.message {
+    text-align: center;
+    padding: 20px;
+    margin: 20px 0;
+    border-radius: 12px;
+    font-weight: bold;
+    font-size: 1.1rem;
+    backdrop-filter: blur(10px);
+    transition: all 0.3s ease;
+}
+
+.success {
+    background: rgba(82, 182, 154, 0.2);
+    color: var(--seafoam);
+    border: 1px solid var(--seafoam);
+}
+
+.error {
+    background: rgba(255, 155, 113, 0.2);
+    color: var(--coral);
+    border: 1px solid var(--coral);
+}
+
+.warning {
+    background: rgba(255, 209, 102, 0.2);
+    color: var(--gold);
+    border: 1px solid var(--gold);
+}
+
+.info {
+    background: rgba(52, 160, 164, 0.2);
+    color: var(--aqua);
+    border: 1px solid var(--aqua);
+}
+
+/* Индикатор проголосованных номинаций */
+.voted-card {
+    border: 2px solid var(--gold);
+    position: relative;
+}
+
+.voted-card::after {
+    content: "✓";
+    position: absolute;
+    top: 15px;
+    right: 15px;
+    background: var(--gold);
+    color: var(--dark-ocean);
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: bold;
+    font-size: 1.2rem;
+}
+
+/* Индикатор синхронизации */
+.sync-indicator {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    background: var(--modal-bg);
+    padding: 10px 15px;
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 0.9rem;
+    backdrop-filter: blur(10px);
+    border: 1px solid var(--gold);
+    z-index: 1000;
+}
+
+.sync-indicator.syncing {
+    animation: pulse 2s infinite;
+    border-color: var(--firebase-syncing);
+}
+
+.sync-indicator.connected {
+    border-color: var(--firebase-connected);
+}
+
+.sync-indicator.error {
+    border-color: var(--firebase-error);
+}
+
+/* Админ панель */
+.admin-panel {
+    background: var(--modal-bg);
+    padding: 20px;
+    border-radius: 15px;
+    margin-top: 20px;
+    border: 2px solid var(--gold);
+}
+
+.admin-panel h3 {
+    color: var(--gold);
+    margin-bottom: 15px;
+    text-align: center;
+}
+
+.results-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 15px;
+}
+
+.results-table th,
+.results-table td {
+    padding: 12px;
+    text-align: left;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.results-table th {
+    background: rgba(255, 255, 255, 0.1);
+    color: var(--gold);
+    font-weight: 600;
+}
+
+.results-table tr:hover {
+    background: rgba(255, 255, 255, 0.05);
+}
+
+.vote-count {
+    background: var(--gold);
+    color: var(--dark-ocean);
+    padding: 4px 8px;
+    border-radius: 12px;
+    font-size: 0.8rem;
+    font-weight: bold;
+}
+
+.hidden {
+    display: none !important;
+}
+
+/* Адаптивность */
+@media (max-width: 768px) {
+    .container {
+        padding: 10px;
+    }
+    
+    .nominations-container {
+        grid-template-columns: 1fr;
+    }
+    
+    .modal-nominees {
+        grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+    }
+    
+    h1 {
+        font-size: 2rem;
+    }
+    
+    .title-section i {
+        font-size: 1.8rem;
+    }
+    
+    .header-info {
+        flex-direction: column;
+        gap: 15px;
+    }
+    
+    .modal-content {
+        padding: 20px;
+    }
+    
+    .nominee-image-container {
+        width: 100px;
+        height: 100px;
+    }
+    
+    .sync-indicator {
+        top: 10px;
+        right: 10px;
+        left: 10px;
+        justify-content: center;
+    }
+}
+
+@media (max-width: 480px) {
+    .login-form {
+        padding: 25px;
+        margin: 20px auto;
+    }
+    
+    .main-header {
+        padding: 20px;
+    }
+    
+    .categories-scroll {
+        gap: 8px;
+    }
+    
+    .category-btn {
+        padding: 10px 15px;
+        font-size: 0.9rem;
+    }
+    
+    .firebase-status {
+        font-size: 0.8rem;
+        padding: 10px;
+    }
+}
+
+/* Анимации для Firebase статусов */
+@keyframes firebasePulse {
+    0% {
+        box-shadow: 0 0 0 0 rgba(82, 182, 154, 0.4);
+    }
+    70% {
+        box-shadow: 0 0 0 10px rgba(82, 182, 154, 0);
+    }
+    100% {
+        box-shadow: 0 0 0 0 rgba(82, 182, 154, 0);
+    }
+}
+
+.firebase-status.connected {
+    animation: firebasePulse 2s infinite;
+}
+
+/* Стили для оффлайн режима */
+.offline-mode {
+    border-left: 4px solid var(--firebase-disconnected);
+}
+
+.online-mode {
+    border-left: 4px solid var(--firebase-connected);
+}
+
+/* Стили для индикатора загрузки */
+.loading-spinner {
+    display: inline-block;
+    width: 20px;
+    height: 20px;
+    border: 3px solid rgba(255, 255, 255, 0.3);
+    border-radius: 50%;
+    border-top-color: var(--gold);
+    animation: spin 1s ease-in-out infinite;
+}
+
+@keyframes spin {
+    to { transform: rotate(360deg); }
+}
+
+/* Стили для статистики Firebase */
+.firebase-stats {
+    display: flex;
+    gap: 15px;
+    justify-content: center;
+    flex-wrap: wrap;
+    margin-top: 15px;
+}
+
+.stat-item {
+    background: rgba(255, 255, 255, 0.1);
+    padding: 10px 15px;
+    border-radius: 10px;
+    text-align: center;
+    backdrop-filter: blur(10px);
+}
+
+.stat-value {
+    font-size: 1.5rem;
+    font-weight: bold;
+    color: var(--gold);
+}
+
+.stat-label {
+    font-size: 0.8rem;
+    opacity: 0.8;
+    margin-top: 5px;
+}
+/* Мобильная адаптация */
+@media (max-width: 768px) {
+    .container {
+        padding: 10px;
+    }
+    
+    .login-form {
+        padding: 20px;
+        margin: 20px auto;
+    }
+    
+    .nominations-container {
+        grid-template-columns: 1fr;
+        gap: 15px;
+    }
+    
+    .modal-content {
+        padding: 15px;
+        margin: 10px;
+        width: calc(100% - 20px);
+    }
+    
+    .modal-nominees {
+        grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+        gap: 10px;
+    }
+    
+    .nominee-image-container {
+        width: 80px;
+        height: 80px;
+    }
+    
+    .categories-scroll {
+        padding: 5px;
+    }
+    
+    .category-btn {
+        padding: 8px 12px;
+        font-size: 0.8rem;
+    }
+    
+    .main-header {
+        padding: 15px;
+    }
+    
+    h1 {
+        font-size: 1.5rem;
+    }
+    
+    .header-info {
+        flex-direction: column;
+        gap: 10px;
+    }
+}
+
+/* Улучшения для тач-устройств */
+@media (hover: none) and (pointer: coarse) {
+    .nomination-card,
+    .modal-nominee,
+    .category-btn {
+        cursor: default;
+    }
+    
+    .ocean-btn,
+    .view-nominees-btn,
+    .modal-vote-btn {
+        min-height: 44px; /* Минимальный размер для касания */
+    }
+    
+    input {
+        font-size: 16px; /* Предотвращает зум в iOS */
+    }
+}
+
+/* Админ-панель */
+.admin-panel {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background: var(--modal-bg);
+    padding: 20px;
+    border-radius: 15px;
+    border: 2px solid var(--gold);
+    z-index: 1000;
+    backdrop-filter: blur(10px);
+}
+/* Админ-панель */
+.admin-panel {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background: var(--modal-bg);
+    padding: 25px;
+    border-radius: 15px;
+    border: 2px solid var(--gold);
+    z-index: 10000;
+    backdrop-filter: blur(15px);
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.5);
+    min-width: 300px;
+    max-width: 90%;
+}
+
+.admin-panel h3 {
+    color: var(--gold);
+    margin-bottom: 20px;
+    text-align: center;
+    font-size: 1.4rem;
+}
+
+.admin-panel .ocean-btn {
+    margin: 5px;
+    width: auto;
+    min-width: 200px;
+}
+/* Дополнительные стили для новой системы */
+
+/* Стили для форм аутентификации */
+.form-subtitle {
+    color: var(--seafoam);
+    margin-bottom: 20px;
+    font-size: 1rem;
+}
+
+.auth-switch {
+    margin-top: 20px;
+    text-align: center;
+}
+
+.auth-switch a {
+    color: var(--gold);
+    text-decoration: none;
+    cursor: pointer;
+}
+
+.auth-switch a:hover {
+    text-decoration: underline;
+}
+
+/* Стили для статуса голосования */
+.nomination-status {
+    margin-bottom: 15px;
+    padding: 10px;
+    border-radius: 8px;
+    font-size: 0.9rem;
+}
+
+.voted-text {
+    color: var(--seafoam);
+    background: rgba(82, 182, 154, 0.2);
+    padding: 8px 12px;
+    border-radius: 6px;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.not-voted-text {
+    color: var(--gold);
+    background: rgba(255, 209, 102, 0.2);
+    padding: 8px 12px;
+    border-radius: 6px;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+}
+
+/* Кнопка выхода */
+.logout-btn {
+    background: rgba(255, 155, 113, 0.2);
+    color: var(--coral);
+    border: 1px solid var(--coral);
+    padding: 6px 12px;
+    border-radius: 20px;
+    cursor: pointer;
+    font-size: 0.8rem;
+    margin-left: 10px;
+    transition: all 0.3s ease;
+}
+
+.logout-btn:hover {
+    background: var(--coral);
+    color: var(--dark-ocean);
+}
+
+/* Адаптивность для мобильных устройств */
+@media (max-width: 768px) {
+    .voter-info {
+        flex-direction: column;
+        gap: 10px;
+        text-align: center;
+    }
+    
+    .logout-btn {
+        margin-left: 0;
+        margin-top: 5px;
+    }
+    
+    .nomination-status {
+        font-size: 0.8rem;
+    }
+}
+
+/* Анимации для загрузки */
+.loading {
+    opacity: 0.7;
+    pointer-events: none;
+}
+
+.loading::after {
+    content: "";
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 20px;
+    height: 20px;
+    margin: -10px 0 0 -10px;
+    border: 2px solid var(--gold);
+    border-top: 2px solid transparent;
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+}

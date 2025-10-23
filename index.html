@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Оскар "Подводного мира"</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+</head>
+<body>
+    <!-- Анимированный фон -->
+    <div class="ocean-background">
+        <div class="wave wave-1"></div>
+        <div class="wave wave-2"></div>
+        <div class="wave wave-3"></div>
+        <div class="bubbles"></div>
+        <div class="marine-life">
+            <div class="fish fish-1">🐠</div>
+            <div class="fish fish-2">🐡</div>
+            <div class="fish fish-3">🐟</div>
+            <div class="seaweed seaweed-1">🌿</div>
+            <div class="seaweed seaweed-2">🌿</div>
+        </div>
+    </div>
+    
+    <div class="container">
+        <!-- Форма аутентификации -->
+        <div class="login-form" id="auth-form">
+            <div class="form-logo">
+                <i class="fas fa-trophy-wave"></i>
+                <h2>Оскар Подводного Мира</h2>
+                <p class="form-subtitle">Войдите в систему голосования</p>
+            </div>
+            
+            <!-- Форма входа -->
+            <div id="login-section">
+                <div class="form-group">
+                    <label for="login-email">
+                        <i class="fas fa-envelope"></i> Email:
+                    </label>
+                    <input type="email" id="login-email" placeholder="Ваш email" required>
+                </div>
+                <div class="form-group">
+                    <label for="login-password">
+                        <i class="fas fa-lock"></i> Пароль:
+                    </label>
+                    <input type="password" id="login-password" placeholder="Ваш пароль" required>
+                </div>
+                <button class="submit-btn ocean-btn" id="login-btn">
+                    <i class="fas fa-sign-in-alt"></i> Войти
+                </button>
+                <p class="auth-switch">
+                    Нет аккаунта? <a href="#" id="show-register">Зарегистрироваться</a>
+                </p>
+            </div>
+
+            <!-- Форма регистрации -->
+            <div id="register-section" class="hidden">
+                <div class="form-group">
+                    <label for="register-name">
+                        <i class="fas fa-user"></i> Имя:
+                    </label>
+                    <input type="text" id="register-name" placeholder="Ваше имя" required>
+                </div>
+                <div class="form-group">
+                    <label for="register-surname">
+                        <i class="fas fa-users"></i> Фамилия:
+                    </label>
+                    <input type="text" id="register-surname" placeholder="Ваша фамилия" required>
+                </div>
+                <div class="form-group">
+                    <label for="register-email">
+                        <i class="fas fa-envelope"></i> Email:
+                    </label>
+                    <input type="email" id="register-email" placeholder="Ваш email" required>
+                </div>
+                <div class="form-group">
+                    <label for="register-password">
+                        <i class="fas fa-lock"></i> Пароль:
+                    </label>
+                    <input type="password" id="register-password" placeholder="Пароль (минимум 6 символов)" required>
+                </div>
+                <button class="submit-btn ocean-btn" id="register-btn">
+                    <i class="fas fa-user-plus"></i> Зарегистрироваться
+                </button>
+                <p class="auth-switch">
+                    Есть аккаунт? <a href="#" id="show-login">Войти</a>
+                </p>
+            </div>
+
+            <!-- Статус Firebase -->
+            <div class="firebase-status" id="firebase-status">
+                <i class="fas fa-database"></i>
+                <span>Подключение к базе данных...</span>
+            </div>
+        </div>
+
+        <!-- Основной интерфейс голосования -->
+        <div class="voting-interface hidden" id="voting-interface">
+            <header class="main-header">
+                <div class="header-content">
+                    <div class="title-section">
+                        <i class="fas fa-crown"></i>
+                        <h1>Оскар "Подводного мира"</h1>
+                        <i class="fas fa-anchor"></i>
+                    </div>
+                    <div class="header-info">
+                        <div class="voter-info" id="voter-info">
+                            <i class="fas fa-user-check"></i>
+                            <span id="voter-name-display"></span>
+                            <button id="logout-btn" class="logout-btn">
+                                <i class="fas fa-sign-out-alt"></i> Выйти
+                            </button>
+                        </div>
+                        <div class="timer-container">
+                            <div class="timer" id="timer">
+                                <i class="fas fa-clock"></i>
+                                <span id="timer-text">23:59:59</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </header>
+            
+            <nav class="categories-nav">
+                <div class="categories-scroll">
+                    <button class="category-btn active" data-category="all">
+                        <i class="fas fa-globe"></i> Все
+                    </button>
+                    <button class="category-btn" data-category="1">
+                        <i class="fas fa-face-grin-squint-tears"></i> Кринж
+                    </button>
+                    <button class="category-btn" data-category="2">
+                        <i class="fas fa-comments"></i> Белерик
+                    </button>
+                    <button class="category-btn" data-category="3">
+                        <i class="fas fa-chess-queen"></i> Манипулятор
+                    </button>
+                    <button class="category-btn" data-category="4">
+                        <i class="fas fa-face-dizzy"></i> Лох
+                    </button>
+                    <button class="category-btn" data-category="5">
+                        <i class="fas fa-running"></i> Спортсмен
+                    </button>
+                    <button class="category-btn" data-category="6">
+                        <i class="fas fa-tshirt"></i> Модник
+                    </button>
+                    <button class="category-btn" data-category="7">
+                        <i class="fas fa-map-marked-alt"></i> Авантюрист
+                    </button>
+                    <button class="category-btn" data-category="8">
+                        <i class="fas fa-video"></i> Контентмейкер
+                    </button>
+                    <button class="category-btn" data-category="10">
+                        <i class="fas fa-face-meh"></i> Фейл
+                    </button>
+                    <button class="category-btn" data-category="11">
+                        <i class="fas fa-laugh-squint"></i> Мем
+                    </button>
+                    <button class="category-btn" data-category="12">
+                        <i class="fas fa-hands-helping"></i> Активист
+                    </button>
+                </div>
+            </nav>
+            
+            <div class="message hidden" id="message"></div>
+            
+            <main class="nominations-main">
+                <div class="nominations-container" id="nominations-container">
+                    <!-- Номинации будут добавлены через JavaScript -->
+                </div>
+            </main>
+        </div>
+        
+        <div class="overlay hidden" id="overlay"></div>
+        
+        <!-- Модальное окно номинантов -->
+        <div class="nomination-modal hidden" id="nomination-modal">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h2 id="modal-title">
+                        <i class="fas fa-award"></i> Название номинации
+                    </h2>
+                    <button class="close-modal" id="close-modal">
+                        <i class="fas fa-times"></i>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <p class="modal-description" id="modal-description"></p>
+                    <div class="modal-nominees" id="modal-nominees">
+                        <!-- Номинанты будут добавлены через JavaScript -->
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Кнопка админа -->
+    <div id="admin-button-container" style="display: none; position: fixed; bottom: 10px; right: 10px; z-index: 1000;">
+        <button id="admin-btn" class="ocean-btn" style="padding: 8px 12px; font-size: 0.8rem;">
+            <i class="fas fa-cog"></i> Админ
+        </button>
+    </div>
+
+    <!-- Firebase SDK -->
+    <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-auth-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-firestore-compat.js"></script>
+
+    <!-- ИСПРАВЛЕННЫЕ ПУТИ -->
+    <script src="firebase-config.js"></script>
+    <script src="js/nominations-data.js"></script>
+    <script src="js/auth.js"></script>
+    <script src="js/firebase-db.js"></script>
+    <script src="js/voting.js"></script>
+    <script src="js/ui.js"></script>
+    <script src="js/admin.js"></script>
+    <script src="js/main.js"></script>
+</body>
+</html>
